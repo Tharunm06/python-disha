@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input-group button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #F6BF6D;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .error-message {
+            margin-top: 10px;
+            color: red;
+            font-weight: bold;
+            display: none; /* Initially hide the error message */
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="/" method="post">
+        <div class="input-group">
+            <label for="guard-id">Guard ID:</label>
+            <input type="text" id="guard-id" name="guard-id" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="input-group">
+            <button type="submit">Login</button>
+        </div>
+    </form>
+    {% if error_message %}
+        <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+<script>
+    {% if error_message %}
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.style.display = 'block';
+            }
+        });
+    {% endif %}
+</script>
+
+</body>
+</html>

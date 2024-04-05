@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disha-Guard-Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input-group button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #F6BF6D;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            margin: 0 5px;
+            border: none;
+            align-content: center;
+            width: 100px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #F6BF6D;
+            border: none;
+        }
+
+        .message {
+            margin-top: 10px;
+            color: green;
+            font-weight: bold;
+        }
+
+        #previewContainer {
+            margin-top: 10px;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Register Visitor</h2>
+    {% if success_message %}
+        <div class="message" id="success-message">{{ success_message }}</div>
+        <script>
+            setTimeout(function() {
+                document.getElementById('success-message').style.display = 'none';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        </script>
+    {% endif %}
+
+    <form action="/save_data" method="post">
+        <div class="input-group">
+            <label for="name">Name: <span aria-label="required">*</span></label>
+            <input type="text" placeholder="Name" id="name" name="name" required>
+        </div>
+        <!-- Phone Number -->
+        <div class="input-group">
+            <label for="mobilenumber">Mobile number: <span aria-label="required">*</span></label>
+            <input type="tel" id="mobilenumber" name="mobileNumber" pattern="[0-9]{10}" placeholder="Enter your mobile number" required>
+        </div>
+        <!-- Purpose of Visit -->
+        <div class="input-group">
+            <label for="purpose">Purpose of visit: <span aria-label="required">*</span></label>
+            <input type="text" list="PurposeOfVisit" placeholder="Purpose of Visit" id="purpose" name="purpose" required />
+            <datalist id="PurposeOfVisit">
+                <option value="Professor Ashok Jhunjhunwala,E301,9898989898">Professor Ashok Jhunjhunwala,E301,9898989898</option>
+                <option value="Panoculon Labs,E303,IITMRP">Panoculon Labs,E303</option>
+                <option value="Build Club,D600">Build Club,D600</option>
+                <option value="Sreeraj,E303,Panoculon Labs,8056554477">Sreeraj,Panoculon Labs,E303,8056554477</option>
+            </datalist>
+        </div>
+        <!-- Number Plate Img -->
+        <div class="input-group">
+            <input type="file" id="imageInput" accept="image/*;capture=camera" onchange="previewImage(this)">
+            <div id="previewContainer">
+                <img id="imagePreview" alt="Selected Photo">
+            </div>
+        </div>
+        <!-- Vehicle Number -->
+        <div class="input-group">
+            <input type="text" placeholder="Vehicle Number" id="VehicleNumber" name="VehicleNumber" required>
+        </div>
+        <!-- Send OTP Button -->
+        <div class="input-group">
+            <button onclick="navigateToNextPage()">OK</button>
+        </div>
+        <!-- Logout Button -->
+        <div class="input-group">
+            <a class="back-btn" href="/logout">Log Out</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function previewImage(input) {
+        var preview = document.getElementById('imagePreview');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '';
+        }
+    }
+</script>
+
+</body>
+</html>
